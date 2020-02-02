@@ -1,8 +1,6 @@
-Just edit /usr/bin/startx and add something like this at the top:
+make && make install
 
-export X_NICE="-10"
+And add to the script: /usr/bin/startx
 
-And do (something like) this:
+export X_NICE="-19"
 
-make
-make install
