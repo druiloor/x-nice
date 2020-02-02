@@ -1,11 +1,15 @@
 all:
 	gcc -Wall -O2 X_wrapper.c -o X_wrapper
+	strip --strip-all X_wrapper
 
 install:
-	cp X_wrapper $(DESTDIR)/usr/bin/X
+	# Backup will be: /usr/bin/X~
+	install --backup X_wrapper $(DESTDIR)/usr/bin/X
 	chgrp wheel $(DESTDIR)/usr/bin/X
 	chmod 4710 $(DESTDIR)/usr/bin/X
 	chmod -s $(DESTDIR)/usr/bin/Xorg
+	chmod -s $(DESTDIR)/usr/libexec/Xorg
+	chmod -s $(DESTDIR)/usr/libexec/Xorg.wrap
 
 uninstall:
 	rm $(DESTDIR)/usr/bin/X
