@@ -30,6 +30,16 @@ int main(int argc, char *argv[], char *envp[])
 
     buf = getenv("X_NICE");
 
+    /*
+     * See: /usr/src/linux/Documentation/prctl/no_new_privs.txt
+     */
+    if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == -1) {
+        fprintf(stderr, "Error: no_new_privs = %s", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    fprintf(stderr, "no_new_privs = %d\n",
+            prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
+
     if (buf == NULL) {
 	fprintf(stderr, "X_NICE is unset\n");
 	fprintf(stderr, "Defaulting to: 0\n");
@@ -57,16 +67,6 @@ int main(int argc, char *argv[], char *envp[])
 		strerror(errno));
 	fprintf(stderr, "Defaulting to: 0.\n");
     }
-
-    /*
-     * See: /usr/src/linux/Documentation/prctl/no_new_privs.txt
-     */
-    if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == -1) {
-        fprintf(stderr, "Error: no_new_privs = %s", strerror(errno));
-        exit(EXIT_FAILURE);
-    }
-    fprintf(stderr, "no_new_privs = %d\n",
-            prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
 
     /* Tell the viewers wat is going to happen */
     fprintf(stderr, "Starting %s with priority %d\n", prog, i);
