@@ -9,6 +9,8 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
+
+/* We need this for no_new_privs */
 #include <sys/prctl.h>
 
 /* We need this for geteuid() */
@@ -28,8 +30,6 @@ int main(int argc, char *argv[], char *envp[])
     int i;
     char *buf;
 
-    buf = getenv("X_NICE");
-
     /*
      * See: /usr/src/linux/Documentation/prctl/no_new_privs.txt
      */
@@ -40,6 +40,7 @@ int main(int argc, char *argv[], char *envp[])
     fprintf(stderr, "no_new_privs = %d\n",
             prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
 
+    buf = getenv("X_NICE");
     if (buf == NULL) {
 	fprintf(stderr, "X_NICE is unset\n");
 	fprintf(stderr, "Defaulting to: 0\n");
