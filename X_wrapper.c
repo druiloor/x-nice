@@ -67,6 +67,7 @@ int main(int argc, char *argv[], char *envp[])
 	fprintf(stderr, "Failed to set nice valve %d - %s\n", i,
 		strerror(errno));
 	fprintf(stderr, "Defaulting to: 0.\n");
+	i = 0;
     }
 
     /* Tell the viewers wat is going to happen */
