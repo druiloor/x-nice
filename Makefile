@@ -13,8 +13,8 @@ install:
 	#chmod -s $(DESTDIR)/usr/libexec/Xorg.wrap
 
 uninstall:
+	# Hmn dunno 'bout this: why not just reinstall xorg
 	rm $(DESTDIR)/usr/bin/X
 	ln -s $(DESTDIR)/usr/bin/Xorg $(DESTDIR)/usr/bin/X
-	# Hmn dunno 'bout this
 	#chmod 4711 $(DESTDIR)/usr/bin/Xorg
 	chmod u+s $(DESTDIR)/usr/bin/Xorg
